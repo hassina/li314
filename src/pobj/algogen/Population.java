@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import pobj.arith.EnvEval;
+
 /**
  * Classe de représentation de la Population
  * 
@@ -48,6 +50,15 @@ public class Population {
 		return s;
 	}
 
+	public String toStringWithEnv(EnvEval cible) {
+		String s = "[Population de taille " + individus.size() + "]\n";
+		for (int i = 0; i < individus.size(); i++) {
+			s += individus.get(i).toString();
+			s += " = " + individus.get(i).getValeurPropre().eval(cible) + "\n";
+		}
+		return s;
+	}
+
 	/**
 	 * Evalue le fitness de chaque individu de la population dans
 	 * l'environnement passé en paramètre
@@ -85,6 +96,7 @@ public class Population {
 			if (rand.nextDouble() < 1) {
 				ind.muter();
 			}
+			ind = new Individu(ind.getValeurPropre().simplifier());
 			pop.add(ind);
 		}
 		return pop;

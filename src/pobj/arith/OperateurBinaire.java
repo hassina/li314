@@ -5,11 +5,11 @@ package pobj.arith;
  */
 public class OperateurBinaire implements Expression {
 
-	private Operator op;
+	private final Operator op;
 	/** Opérateur */
-	private Expression left;
+	private final Expression left;
 	/** Expression de gauche */
-	private Expression right;
+	private final Expression right;
 
 	/** Expression de droite */
 
@@ -66,5 +66,24 @@ public class OperateurBinaire implements Expression {
 
 	public String toString() {
 		return "(" + left + " " + op + " " + right + ")";
+	}
+
+	public Expression simplifier() {
+		if (left instanceof Constante && right instanceof Constante) {
+			EnvEval env = new EnvEval(0);
+			return ExpressionFactory.createConstante(this.eval(env));
+		}
+		return ExpressionFactory.createOperateurBinaire(op, left.simplifier(),
+				right.simplifier());
+
+	}
+
+	public boolean equals(Object o) {
+		OperateurBinaire other = (OperateurBinaire) o;
+		if (other.op != op) {
+			return false;
+		}
+		return (left == other.left && right == other.right)
+				|| (left == other.right && right == other.left && op == Operator.PLUS);
 	}
 }

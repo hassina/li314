@@ -14,10 +14,19 @@ public class Main {
 		env.setVariable(1, 20);
 		env.setVariable(2, 30);
 
-		/* génération d'une expression aléatoire */
-		Expression eRand = ExpressionFactory.createRandomExpression();
+		double avg = 0;
+		for (int i = 0; i < 20; i++) {
 
-		/* affichage de l'expression et de son évaluation */
-		System.out.println(eRand + " = " + eRand.eval(env));
+			/* génération d'une expression aléatoire */
+			Expression eRand = ExpressionFactory.createRandomExpression();
+
+			/* affichage de l'expression et de son évaluation */
+			avg += eRand.eval(env);
+			System.out.println(eRand + " = " + eRand.eval(env) + "\n");
+
+		}
+		avg /= 20;
+		System.out.println("Moyenne : " + avg);
+
 	}
 }

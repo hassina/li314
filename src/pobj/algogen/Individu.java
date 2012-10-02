@@ -1,22 +1,22 @@
 package pobj.algogen;
 
-import java.util.Random;
+import pobj.arith.Expression;
+import pobj.arith.ExpressionFactory;
+import pobj.arith.Operator;
 
 /**
  * Classe de représentation d'un Individu
  * 
  */
 public class Individu implements Comparable<Individu> {
-	private double valeurPropre;
+	private Expression valeurPropre;
 	private double fitness;
 
 	/**
 	 * Construit un individu
 	 */
 	public Individu() {
-		super();
-		Random r = new Random();
-		this.valeurPropre = r.nextDouble();
+		valeurPropre = ExpressionFactory.createRandomExpression();
 		fitness = 0;
 	}
 
@@ -26,7 +26,7 @@ public class Individu implements Comparable<Individu> {
 	 * @param valeurPropre
 	 *            Valeur propre de l'individu
 	 */
-	public Individu(double valeurPropre) {
+	public Individu(Expression valeurPropre) {
 		this.valeurPropre = valeurPropre;
 		fitness = 0;
 	}
@@ -55,7 +55,7 @@ public class Individu implements Comparable<Individu> {
 	 * 
 	 * @return la valeur propre
 	 */
-	public double getValeurPropre() {
+	public Expression getValeurPropre() {
 		return valeurPropre;
 	}
 
@@ -79,18 +79,25 @@ public class Individu implements Comparable<Individu> {
 	 * Mute un individu en redéfinissant sa valeurPropre aléatoirement
 	 */
 	public void muter() {
-		Random r = new Random();
-		valeurPropre = r.nextDouble();
+		valeurPropre = ExpressionFactory.createRandomExpression();
 	}
 
 	/**
 	 * Croise deux individus en créant un nouvel individu dont la valeurPropre
 	 * est égale à la moyenne des deux individus
 	 * 
-	 * @param autre Individu avec lequel le croisement est effectuée
+	 * @param autre
+	 *            Individu avec lequel le croisement est effectuée
 	 * @return le nouvel individu résultant du croisement
 	 */
 	public Individu croiser(Individu autre) {
-		return new Individu((this.valeurPropre + autre.valeurPropre) / 2);
+		if (valeurPropre.equals(autre.valeurPropre)) {
+			return this;
+		}
+		return new Individu(ExpressionFactory.createOperateurBinaire(
+				Operator.DIV, ExpressionFactory.createOperateurBinaire(
+						Operator.PLUS, valeurPropre, autre.getValeurPropre()),
+				ExpressionFactory.createConstante(2)));
+
 	}
 }

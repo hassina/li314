@@ -5,7 +5,7 @@ package pobj.arith;
  */
 public class Variable implements Expression {
 
-	private int rang;
+	private final int rang;
 
 	/** Rang de la variable dans l'environnement */
 
@@ -26,6 +26,14 @@ public class Variable implements Expression {
 
 	public String toString() {
 		return "var[" + rang + "]";
+	}
+
+	public Expression simplifier() {
+		return this;
+	}
+
+	public boolean equals(Object o) {
+		return rang == ((Variable) o).rang;
 	}
 
 }

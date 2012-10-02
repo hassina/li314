@@ -5,7 +5,7 @@ package pobj.arith;
  * 
  */
 public class Constante implements Expression {
-	private double value;
+	private final double value;
 
 	/** Valeur de la constante */
 
@@ -35,6 +35,14 @@ public class Constante implements Expression {
 
 	public String toString() {
 		return "" + value;
+	}
+
+	public Expression simplifier() {
+		return this;
+	}
+
+	public boolean equals(Object o) {
+		return value == ((Constante) o).getValue();
 	}
 
 }
