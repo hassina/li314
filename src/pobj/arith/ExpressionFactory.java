@@ -63,7 +63,7 @@ public class ExpressionFactory {
 	public static Expression createRandomExpression() {
 		// cte var opbin (+ * -)
 
-		return createRandomExpresssionRec(3);
+		return createRandomExpresssionRec(generateur.nextInt(3));
 	}
 
 	/**
