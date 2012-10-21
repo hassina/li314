@@ -2,15 +2,14 @@ package pobj.algogen;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Random;
-
-import pobj.arith.EnvEval;
 
 /**
  * Classe de représentation de la Population
  * 
  */
-public class Population {
+public class Population implements Iterable<Individu> {
 
 	private ArrayList<Individu> individus;
 
@@ -42,23 +41,6 @@ public class Population {
 		individus.add(individu);
 	}
 
-	public String toString() {
-		String s = "[Population de taille " + individus.size() + "]\n";
-		for (int i = 0; i < individus.size(); i++) {
-			s += individus.get(i).toString();
-		}
-		return s;
-	}
-
-	public String toStringWithEnv(EnvEval cible) {
-		String s = "[Population de taille " + individus.size() + "]\n";
-		for (int i = 0; i < individus.size(); i++) {
-			s += individus.get(i).toString();
-			s += " = " + individus.get(i).getValeurPropre().eval(cible) + "\n";
-		}
-		return s;
-	}
-
 	/**
 	 * Evalue le fitness de chaque individu de la population dans
 	 * l'environnement passé en paramètre
@@ -67,9 +49,17 @@ public class Population {
 	 *            Environnement dans lequel les individus sont évalués
 	 */
 	public void evaluer(Environnement cible) {
-		for (Individu ind : individus) {
-			ind.setFitness(cible.eval(ind));
+		// System.out.print("[eval   ]\t");
+		for (int i = 0; i < individus.size(); i++) {
+			double fit = cible.eval(individus.get(i));
+			individus.get(i).setFitness(fit);
+			// System.out.print(fit + "\t");
 		}
+		// System.out.print("\n[fit    ]\t");
+		// for (int i = 0; i < individus.size(); i++) {
+		// // System.out.print(individus.get(i).getFitness() + "\t");
+		// }
+		// System.out.println();
 		Collections.sort(individus);
 	}
 
@@ -87,7 +77,7 @@ public class Population {
 		Population pop = new Population();
 		int nb = (int) (individus.size() * 0.2);
 		for (int i = 0; i < nb; i++) {
-			pop.add(new Individu(individus.get(i)));
+			pop.add(individus.get(i).clone());
 		}
 		Random rand = new Random();
 		for (int i = 0; i < 4 * nb; i++) {
@@ -96,7 +86,8 @@ public class Population {
 			if (rand.nextDouble() < 1) {
 				ind.muter();
 			}
-			ind = new Individu(ind.getValeurPropre().simplifier());
+			// Simplification des expressions arithmétiques (cf. TP précédent)
+			// ind = ind.clone().simplifier());
 			pop.add(ind);
 		}
 		return pop;
@@ -107,8 +98,8 @@ public class Population {
 	 * génération. La fonction primordiale de la Population est de pouvoir
 	 * evoluer. On passe un Environnement qui permettra de calculer le fitness
 	 * des individus, afin de décider lesquels sont les plus aptes (survival of
-	 * the fittest). On garde ici lemains 20% meilleurs et on les fait se
-	 * reproduire pour générer la prochaine génération.
+	 * the fittest). On garde ici les 20% meilleurs et on les fait se reproduire
+	 * pour générer la prochaine génération.
 	 * 
 	 * @param cible
 	 *            l'objectif/problème à résoudre environnement conditionnant
@@ -124,6 +115,44 @@ public class Population {
 		Population nextgen = reproduire();
 		nextgen.evaluer(cible);
 		return nextgen;
+	}
+
+	@Override
+	public Iterator<Individu> iterator() {
+		return individus.iterator();
+	}
+
+	public Individu get(int index) {
+		return individus.get(index);
+	}
+
+	public void mute(double d) {
+		Random rand = new Random();
+		for (Individu ind : individus) {
+			if (rand.nextDouble() < d) {
+				ind.muter();
+			}
+		}
+	}
+
+	public String toString() {
+		String s = "[Population de taille " + individus.size() + "]\n";
+		for (Individu ind : individus) {
+			s += ind.toString() + "\n";
+		}
+		return s;
+	}
+
+	/**
+	 * @deprecated
+	 * @return
+	 */
+	public String toStringDebug(Environnement cible) {
+		String s = "";
+		for (Individu ind : individus) {
+			s += ind.getFitness() + "\t";
+		}
+		return s;
 	}
 
 }

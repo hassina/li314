@@ -1,11 +1,19 @@
-package pobj.arith;
+package pobj.algogen.adapter.arith;
 
 import java.util.Random;
+
+import pobj.algogen.Environnement;
+import pobj.arith.Constante;
+import pobj.arith.EnvEval;
+import pobj.arith.Expression;
+import pobj.arith.OperateurBinaire;
+import pobj.arith.Operator;
+import pobj.arith.Variable;
 
 /**
  * Classe de la fabrique d'expression
  */
-public class ExpressionFactory {
+public abstract class ExpressionFactory {
 
 	private static final int MAXVARIABLE = 2;
 	/** Constante */
@@ -61,9 +69,7 @@ public class ExpressionFactory {
 	 */
 
 	public static Expression createRandomExpression() {
-		// cte var opbin (+ * -)
-
-		return createRandomExpresssionRec(3);
+		return createRandomExpresssionRec(generateur.nextInt(3));
 	}
 
 	/**
@@ -115,5 +121,7 @@ public class ExpressionFactory {
 		}
 		return env;
 	}
+
+	public abstract Environnement createEnvironnement(EnvEval e, int val);
 
 }

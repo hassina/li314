@@ -1,4 +1,8 @@
-package pobj.arith;
+package pobj.main;
+
+import pobj.algogen.adapter.arith.ExpressionFactory;
+import pobj.arith.EnvEval;
+import pobj.arith.Expression;
 
 /**
  * Classe principal du programme
@@ -22,7 +26,7 @@ public class Main {
 
 			/* affichage de l'expression et de son évaluation */
 			avg += eRand.eval(env);
-			System.out.println(eRand + " = " + eRand.eval(env) + "\n");
+			System.out.println(eRand + " = " + eRand.eval(env));
 
 		}
 		avg /= 20;

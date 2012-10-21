@@ -16,6 +16,7 @@ public interface Expression {
 
 	/**
 	 * Simplifie l'expression
+	 * 
 	 * @return Résultat de la simplification de l'expression
 	 */
 	public Expression simplifier();

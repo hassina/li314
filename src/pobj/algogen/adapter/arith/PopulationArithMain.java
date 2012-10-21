@@ -1,9 +1,8 @@
-package pobj.main;
+package pobj.algogen.adapter.arith;
 
 import pobj.algogen.Environnement;
 import pobj.algogen.Population;
-import pobj.algogen.PopulationFactory;
-import pobj.algogen.ValeurCible;
+import pobj.algogen.adapter.agent.PopulationFactory;
 
 public class PopulationArithMain {
 
@@ -19,13 +18,9 @@ public class PopulationArithMain {
 		Environnement cible = new ValeurCible();
 
 		for (int i = 0; i < 10; i++) {
-
-			System.out.println("Valeur cible : "
-					+ ((ValeurCible) cible).getValue());
-			System.out.println("[Génération n° " + i + "]");
+			System.out.print("[Génération n° " + i + "]");
 			pop = pop.evoluer(cible);
-			System.out.println(pop.toStringWithEnv(((ValeurCible) cible)
-					.getEnv()));
+			System.out.println(pop.toString());
 		}
 	}
 }

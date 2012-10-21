@@ -1,5 +1,7 @@
 package pobj.arith;
 
+import pobj.algogen.adapter.arith.ExpressionFactory;
+
 /**
  * Classe de représentation d'un opérateur binaire
  */
@@ -78,12 +80,28 @@ public class OperateurBinaire implements Expression {
 
 	}
 
-	public boolean equals(Object o) {
-		OperateurBinaire other = (OperateurBinaire) o;
-		if (other.op != op) {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
 			return false;
-		}
-		return (left == other.left && right == other.right)
-				|| (left == other.right && right == other.left && op == Operator.PLUS);
+		if (getClass() != obj.getClass())
+			return false;
+		OperateurBinaire other = (OperateurBinaire) obj;
+		if (left == null) {
+			if (other.left != null)
+				return false;
+		} else if (!left.equals(other.left))
+			return false;
+		if (op != other.op)
+			return false;
+		if (right == null) {
+			if (other.right != null)
+				return false;
+		} else if (!right.equals(other.right))
+			return false;
+		return true;
 	}
+
 }

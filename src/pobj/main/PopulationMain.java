@@ -2,8 +2,8 @@ package pobj.main;
 
 import pobj.algogen.Environnement;
 import pobj.algogen.Population;
-import pobj.algogen.PopulationFactory;
-import pobj.algogen.ValeurCible;
+import pobj.algogen.adapter.agent.PopulationFactory;
+import pobj.algogen.adapter.arith.ValeurCible;
 
 /**
  * Classe main de test de la Population
