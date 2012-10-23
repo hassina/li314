@@ -6,6 +6,7 @@ import pobj.algogen.Environnement;
 import pobj.algogen.Population;
 import pobj.algogen.adapter.agent.LabyEnvironnementAdapter;
 import pobj.algogen.adapter.agent.PopulationFactory;
+import spiti.core.io.Chrono;
 import agent.laby.ChargeurLabyrinthe;
 import agent.laby.Labyrinthe;
 
@@ -23,19 +24,23 @@ public class MainLaby {
 			System.exit(1);
 		}
 		try {
+
 			Labyrinthe laby = ChargeurLabyrinthe.chargerLabyrinthe(labyFile);
-
-			Population pop = PopulationFactory.createRandomPopulation(10,
+			Population pop = PopulationFactory.createRandomPopulation(10000,
 					nbRules);
-
 			Environnement cible = new LabyEnvironnementAdapter(laby, nbSteps);
+
+			long res = 0;
 			for (int i = 0; i < nbGen; i++) {
+
+				Chrono sw = new Chrono();
 				pop = pop.evoluer(cible);
-
-				System.out.print("[gen " + i + " ]\t");
-				System.out.println(pop.toStringDebug(cible));
+				res += sw.stop2();
+				// System.out.print("[gen " + i + " ]\t");
+				// System.out.println(pop.toString());
 			}
-
+			res /= nbGen;
+			System.out.println("Temps moyen pour une génération : " + res);
 		} catch (IOException e) {
 			System.out.println("Problème de chargement du labyrinthe" + e);
 			System.exit(1);
