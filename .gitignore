@@ -1,3 +1,4 @@
 doc/*
 bin/*
 .svn
+.DS_Store
