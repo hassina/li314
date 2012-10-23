@@ -1,10 +1,9 @@
 package pobj.algogen;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
-
-import pobj.util.MyArrayList;
 
 /**
  * Classe de représentation de la Population
@@ -12,7 +11,7 @@ import pobj.util.MyArrayList;
  */
 public class Population implements Iterable<Individu> {
 
-	private MyArrayList<Individu> individus;
+	private ArrayList<Individu> individus;
 
 	/** Tableau dynamique des individus */
 
@@ -20,7 +19,7 @@ public class Population implements Iterable<Individu> {
 	 * Construit la population
 	 */
 	public Population() {
-		individus = new MyArrayList<Individu>();
+		individus = new ArrayList<Individu>();
 	}
 
 	/**
