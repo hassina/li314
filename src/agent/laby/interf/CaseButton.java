@@ -22,7 +22,7 @@ import agent.laby.ContenuCase;
  * @author Yann
  * 
  */
-class CaseButton extends JButton {
+public class CaseButton extends JButton {
 
 	// trivia de serializable
 	private static final long serialVersionUID = 1L;
@@ -80,7 +80,7 @@ class CaseButton extends JButton {
 		switch (aspect) {
 		case POINT:
 			setBackground(Color.yellow);
-			setIcon(new ImageIcon("dot.jpg"));
+			setIcon(new ImageIcon("dot.png"));
 			break;
 		case VIDE:
 			setBackground(Color.white);
@@ -88,15 +88,14 @@ class CaseButton extends JButton {
 			break;
 		case MUR:
 			setBackground(Color.black);
-			setIcon(new ImageIcon("wall.jpg"));
+			setIcon(new ImageIcon("wall.png"));
 			break;
 		case ANY:
 		case AGENT:
 			setBackground(Color.blue);
-			setIcon(new ImageIcon("agent.jpg"));
-			setIcon(null);
+			setIcon(new ImageIcon("agent.png"));
+			//setIcon(null);
 			break;
-
 		}
 
 		// inciter à repeindre cet objet à la prochaine occasion
