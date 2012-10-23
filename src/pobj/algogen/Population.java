@@ -136,18 +136,6 @@ public class Population implements Iterable<Individu> {
 	}
 
 	public String toString() {
-		String s = "[Population de taille " + individus.size() + "]\n";
-		for (Individu ind : individus) {
-			s += ind.toString() + "\n";
-		}
-		return s;
-	}
-
-	/**
-	 * @deprecated
-	 * @return
-	 */
-	public String toStringDebug(Environnement cible) {
 		String s = "";
 		for (Individu ind : individus) {
 			s += ind.getFitness() + "\t";
