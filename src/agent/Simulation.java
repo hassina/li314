@@ -1,5 +1,6 @@
 package agent;
 
+import pobj.obs.SimpleObservable;
 import agent.control.IControleur;
 import agent.laby.Labyrinthe;
 
@@ -8,7 +9,7 @@ import agent.laby.Labyrinthe;
  * 
  * @author sigaud
  */
-public class Simulation {
+public class Simulation extends SimpleObservable {
 
 	/** L'agent qu'on simule */
 	private Agent agent;
@@ -28,6 +29,7 @@ public class Simulation {
 	 * @param c
 	 *            : le controleur
 	 */
+
 	public Simulation(Labyrinthe m, IControleur c) {
 		laby = m;
 		agent = new Agent(c, m.getPositionInitiale());
@@ -59,8 +61,8 @@ public class Simulation {
 	public int mesurePerf(int nbPas) {
 		for (int i = 0; i < nbPas; i++) {
 			agent.faitUnPas(getLaby());
+			notifyObservers();
 		}
 		return agent.getScore();
 	}
-
 }

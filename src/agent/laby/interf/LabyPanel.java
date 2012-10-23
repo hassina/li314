@@ -21,7 +21,7 @@ import agent.laby.Labyrinthe;
  * @author Yann
  * 
  */
-class LabyPanel extends JPanel implements ActionListener {
+public class LabyPanel extends JPanel implements ActionListener {
 
 	// / Serializable trivia
 	private static final long serialVersionUID = 1L;
@@ -30,7 +30,7 @@ class LabyPanel extends JPanel implements ActionListener {
 	 * The underlying Maze instance. The graphical cell buttons reflect and
 	 * impact on this maze.
 	 */
-	private Labyrinthe laby;
+	protected Labyrinthe laby;
 	/**
 	 * The cell buttons. On en garde la trace pour permettre les mise à jour.
 	 */
