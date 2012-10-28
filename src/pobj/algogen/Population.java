@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 
+import pobj.util.Generateur;
+
 /**
  * Classe de représentation de la Population
  * 
@@ -79,7 +81,7 @@ public class Population implements Iterable<Individu> {
 		for (int i = 0; i < nb; i++) {
 			pop.add(individus.get(i).clone());
 		}
-		Random rand = new Random();
+		Random rand = Generateur.getInstance();
 		for (int i = 0; i < 4 * nb; i++) {
 			Individu ind = pop.individus.get(rand.nextInt(nb)).croiser(
 					pop.individus.get(rand.nextInt(nb)));
@@ -127,7 +129,7 @@ public class Population implements Iterable<Individu> {
 	}
 
 	public void mute(double d) {
-		Random rand = new Random();
+		Random rand = Generateur.getInstance();
 		for (Individu ind : individus) {
 			if (rand.nextDouble() < d) {
 				ind.muter();

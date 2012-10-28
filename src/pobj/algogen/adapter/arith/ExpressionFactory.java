@@ -9,6 +9,7 @@ import pobj.arith.Expression;
 import pobj.arith.OperateurBinaire;
 import pobj.arith.Operator;
 import pobj.arith.Variable;
+import pobj.util.Generateur;
 
 /**
  * Classe de la fabrique d'expression
@@ -17,7 +18,7 @@ public abstract class ExpressionFactory {
 
 	private static final int MAXVARIABLE = 2;
 	/** Constante */
-	private static Random generateur = new Random();
+	private static Random rand = Generateur.getInstance();
 
 	/** Générateur de nombre aléatoire */
 
@@ -69,7 +70,7 @@ public abstract class ExpressionFactory {
 	 */
 
 	public static Expression createRandomExpression() {
-		return createRandomExpresssionRec(generateur.nextInt(3));
+		return createRandomExpresssionRec(rand.nextInt(3));
 	}
 
 	/**
@@ -81,17 +82,17 @@ public abstract class ExpressionFactory {
 	 */
 	private static Expression createRandomExpresssionRec(int profondeur) {
 
-		int rand = generateur.nextInt(2);
+		int i = rand.nextInt(2);
 
 		if (profondeur == 0) {
-			if (rand == 0) {
-				return createConstante(generateur.nextDouble());
+			if (i == 0) {
+				return createConstante(rand.nextDouble());
 			} else {
-				return new Variable(generateur.nextInt(MAXVARIABLE));
+				return new Variable(rand.nextInt(MAXVARIABLE));
 			}
 		}
-		rand = generateur.nextInt(3);
-		switch (rand) {
+		i = rand.nextInt(3);
+		switch (i) {
 		case 0:
 			return new OperateurBinaire(Operator.MINUS,
 					createRandomExpresssionRec(profondeur - 1),
@@ -117,7 +118,7 @@ public abstract class ExpressionFactory {
 	public static EnvEval createRandomEnvironnement() {
 		EnvEval env = new EnvEval(MAXVARIABLE);
 		for (int i = 0; i < MAXVARIABLE; i++) {
-			env.setVariable(i, generateur.nextDouble());
+			env.setVariable(i, rand.nextDouble());
 		}
 		return env;
 	}

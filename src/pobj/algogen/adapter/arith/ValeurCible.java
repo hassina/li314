@@ -1,18 +1,16 @@
 package pobj.algogen.adapter.arith;
 
-import java.util.Random;
-
 import pobj.algogen.Environnement;
 import pobj.algogen.Individu;
 import pobj.arith.EnvEval;
+import pobj.util.Generateur;
 
 public class ValeurCible implements Environnement {
 	private double cible;
 	private EnvEval env;
 
 	public ValeurCible() {
-		Random r = new Random();
-		cible = r.nextDouble();
+		cible = Generateur.getInstance().nextDouble();
 		env = ExpressionFactory.createRandomEnvironnement();
 	}
 

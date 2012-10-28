@@ -24,7 +24,6 @@ public class MainLaby {
 			System.exit(1);
 		}
 		try {
-
 			Labyrinthe laby = ChargeurLabyrinthe.chargerLabyrinthe(labyFile);
 			Population pop = PopulationFactory.createRandomPopulation(10000,
 					nbRules);
