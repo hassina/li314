@@ -1,7 +1,5 @@
 package pobj.algogen.adapter.arith;
 
-import java.util.Random;
-
 import pobj.algogen.Environnement;
 import pobj.arith.Constante;
 import pobj.arith.EnvEval;
@@ -18,7 +16,7 @@ public abstract class ExpressionFactory {
 
 	private static final int MAXVARIABLE = 2;
 	/** Constante */
-	private static Random rand = Generateur.getInstance();
+	private static Generateur rand = Generateur.getInstance();
 
 	/** Générateur de nombre aléatoire */
 

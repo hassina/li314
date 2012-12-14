@@ -5,7 +5,9 @@ package agent.control;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
+import pobj.util.Generateur;
+
 
 /**
  * Cette classe représente le contrôleur d'un agent, sous forme d'une base de
@@ -15,7 +17,7 @@ import java.util.Random;
  */
 public class Controleur implements IControleur {
 
-	private static Random generator = new Random();
+	private static Generateur generator = Generateur.getInstance();
 
 	/**
 	 * base de règles du contrôleur
@@ -41,7 +43,7 @@ public class Controleur implements IControleur {
 	 */
 	public void muter(double proba) {
 		for (int i = 0; i < size(); i++) {
-			if (Math.random() > proba) {
+			if (generator.nextDouble() > proba) {
 				ruleset.set(i, ControlFactory.generateRandomRule());
 			}
 		}

@@ -1,7 +1,5 @@
 package agent.control;
 
-import java.util.Random;
-
 import pobj.util.Generateur;
 
 /**
@@ -77,7 +75,7 @@ public class ControlFactory {
 	 ********************************************/
 
 	// un generateur aléatoire (pour nextInt())
-	private static Random generateur = Generateur.getInstance();
+	private static Generateur generateur = Generateur.getInstance();
 
 	/**
 	 * Crée une règle aléatoire de type Sensor basée sur un motif aléatoire.
