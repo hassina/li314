@@ -3,6 +3,8 @@ package pobj.algogen.adapter.arith;
 import pobj.algogen.Environnement;
 import pobj.algogen.Population;
 import pobj.algogen.adapter.agent.PopulationFactory;
+import pobj.algogen.adapter.evolution.EvolutionGenerationnelle;
+import pobj.algogen.strategy.SelecteurUniforme;
 
 public class PopulationArithMain {
 
@@ -13,7 +15,7 @@ public class PopulationArithMain {
 			return;
 		}
 		Population pop = PopulationFactory.createRandomPopulation(Integer
-				.parseInt(args[0]));
+				.parseInt(args[0]), new EvolutionGenerationnelle(new SelecteurUniforme()));
 		System.out.println(pop.toString());
 		Environnement cible = new ValeurCible();
 

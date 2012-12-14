@@ -16,8 +16,9 @@ public class PopulationMain {
 					.println("Argument manquant (nombre d'individu dans la pop.)");
 			return;
 		}
-		Population pop = PopulationFactory.createRandomPopulation(Integer
-				.parseInt(args[0]));
+		Population pop = PopulationFactory.createRandomPopulation(
+				Integer.parseInt(args[0]),
+				Population.buildEvolution(true, true));
 		System.out.println(pop.toString());
 		double value = 0.5;
 		Environnement cible = new ValeurCible();

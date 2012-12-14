@@ -2,6 +2,7 @@ package pobj.algogen.adapter.agent;
 
 import pobj.algogen.Population;
 import pobj.algogen.adapter.arith.IndividuExpression;
+import pobj.algogen.adapter.evolution.IEvolution;
 import agent.control.ControlFactory;
 
 /**
@@ -16,8 +17,9 @@ public class PopulationFactory {
 	 *            Taille de la population
 	 * @return la population générée
 	 */
-	public static Population createRandomPopulation(int size) {
-		Population p = new Population();
+	public static Population createRandomPopulation(int size,
+			IEvolution evolution) {
+		Population p = new Population(evolution);
 		for (int i = 0; i < size; i++) {
 			p.add(new IndividuExpression());
 		}
@@ -34,8 +36,9 @@ public class PopulationFactory {
 	 * @return la population générée
 	 */
 
-	public static Population createRandomPopulation(int size, int nbRules) {
-		Population p = new Population();
+	public static Population createRandomPopulation(int size, int nbRules,
+			IEvolution evolution) {
+		Population p = new Population(evolution);
 		for (int i = 0; i < size; i++) {
 			p.add(new ControleurIndividuAdapter(ControlFactory
 					.createControleur(nbRules)));

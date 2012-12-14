@@ -6,5 +6,7 @@ public interface AlgoGenParameter {
 	public static final String NB_RULES = "NombreRegles";
 	public static final String NB_GEN = "NombreGeneration";
 	public static final String TAILLE_POP = "TaillePopulation";
+	public static final String EVO_GEN = "EvolutionGenerationnelle";
+	public static final String SELECT_UNI = "SelectionUniforme";
 
 }

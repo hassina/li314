@@ -3,8 +3,13 @@ package pobj.algogen;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.Random;
 
+import pobj.algogen.adapter.evolution.EvolutionGenerationnelle;
+import pobj.algogen.adapter.evolution.EvolutionProgressive;
+import pobj.algogen.adapter.evolution.IEvolution;
+import pobj.algogen.strategy.IndivSelecteur;
+import pobj.algogen.strategy.SelecteurParFitness;
+import pobj.algogen.strategy.SelecteurUniforme;
 import pobj.util.Generateur;
 
 /**
@@ -14,14 +19,39 @@ import pobj.util.Generateur;
 public class Population implements Iterable<Individu> {
 
 	private ArrayList<Individu> individus;
-
 	/** Tableau dynamique des individus */
+	private IEvolution evolution;
+	/** Evolution **/
+
+	public static IEvolution buildEvolution(boolean selectionUniforme,
+			boolean evolutionGenerationnelle) {
+		IEvolution evolution;
+		IndivSelecteur selecteur;
+
+		if (selectionUniforme) {
+			selecteur = new SelecteurUniforme();
+		} else {
+			selecteur = new SelecteurParFitness();
+		}
+
+		if (evolutionGenerationnelle) {
+			evolution = new EvolutionGenerationnelle(selecteur);
+		} else {
+			evolution = new EvolutionProgressive(selecteur);
+		}
+		return evolution;
+	}
+
+	public IEvolution getEvolution() {
+		return evolution;
+	}
 
 	/**
 	 * Construit la population
 	 */
-	public Population() {
+	public Population(IEvolution evolution) {
 		individus = new ArrayList<Individu>();
+		this.evolution = evolution;
 	}
 
 	/**
@@ -76,23 +106,7 @@ public class Population implements Iterable<Individu> {
 	 *         population existante
 	 */
 	public Population reproduire() {
-		Population pop = new Population();
-		int nb = (int) (individus.size() * 0.2);
-		for (int i = 0; i < nb; i++) {
-			pop.add(individus.get(i).clone());
-		}
-		Random rand = Generateur.getInstance();
-		for (int i = 0; i < 4 * nb; i++) {
-			Individu ind = pop.individus.get(rand.nextInt(nb)).croiser(
-					pop.individus.get(rand.nextInt(nb)));
-			if (rand.nextDouble() < 1) {
-				ind.muter();
-			}
-			// Simplification des expressions arithmétiques (cf. TP précédent)
-			// ind = ind.clone().simplifier());
-			pop.add(ind);
-		}
-		return pop;
+		return evolution.reproduire(this, 0.5);
 	}
 
 	/**
@@ -129,7 +143,7 @@ public class Population implements Iterable<Individu> {
 	}
 
 	public void mute(double d) {
-		Random rand = Generateur.getInstance();
+		Generateur rand = Generateur.getInstance();
 		for (Individu ind : individus) {
 			if (rand.nextDouble() < d) {
 				ind.muter();
@@ -143,6 +157,24 @@ public class Population implements Iterable<Individu> {
 			s += ind.getFitness() + "\t";
 		}
 		return s;
+	}
+
+	/**
+	 * Renvoie la somme des fitness de tous les individus présents dans la
+	 * population
+	 * 
+	 * @return Somme des fitness
+	 */
+	public double getSommeFitnesses() {
+		double res = 0;
+		for (Individu ind : individus) {
+			res += ind.getFitness();
+		}
+		return res;
+	}
+
+	public void removeLast() {
+		individus.remove(individus.size()-1);
 	}
 
 }

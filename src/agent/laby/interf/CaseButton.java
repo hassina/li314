@@ -1,6 +1,5 @@
 package agent.laby.interf;
 
-import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionListener;
 
@@ -79,22 +78,22 @@ public class CaseButton extends JButton {
 
 		switch (aspect) {
 		case POINT:
-			setBackground(Color.yellow);
+			// setBackground(Color.yellow);
 			setIcon(new ImageIcon("dot.png"));
 			break;
 		case VIDE:
-			setBackground(Color.white);
+			// setBackground(Color.white);
 			setIcon(null);
 			break;
 		case MUR:
-			setBackground(Color.black);
+			// setBackground(Color.black);
 			setIcon(new ImageIcon("wall.png"));
 			break;
 		case ANY:
 		case AGENT:
-			setBackground(Color.blue);
+			// setBackground(Color.blue);
 			setIcon(new ImageIcon("agent.png"));
-			//setIcon(null);
+			// setIcon(null);
 			break;
 		}
 

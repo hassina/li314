@@ -45,6 +45,8 @@ public class ConfigurationPanel extends JFrame {
 		put(AlgoGenParameter.NB_RULES);
 		put(AlgoGenParameter.NB_GEN);
 		put(AlgoGenParameter.TAILLE_POP);
+		put(AlgoGenParameter.EVO_GEN);
+		put(AlgoGenParameter.SELECT_UNI);
 	}
 
 	private void initForm() {

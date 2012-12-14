@@ -23,6 +23,7 @@ import pobj.algogen.Population;
 import pobj.algogen.adapter.agent.ControleurIndividuAdapter;
 import pobj.algogen.adapter.agent.LabyEnvironnementAdapter;
 import pobj.algogen.adapter.agent.PopulationFactory;
+import pobj.algogen.adapter.evolution.IEvolution;
 import agent.Simulation;
 import agent.control.IControleur;
 import agent.laby.ChargeurLabyrinthe;
@@ -176,10 +177,11 @@ public class LabyViewer extends JFrame {
 		return laby;
 	}
 
-	public static IControleur processFittest(Labyrinthe laby, int nbIndividu,
+	private static IControleur processFittest(Labyrinthe laby, int nbIndividu,
 			int nbPas, int nbRules, int nbGen) {
+		IEvolution evolution = Population.buildEvolution(true, true);
 		Population pop = PopulationFactory.createRandomPopulation(nbIndividu,
-				nbRules);
+				nbRules, evolution);
 		Environnement cible = new LabyEnvironnementAdapter(laby, nbPas);
 		for (int i = 0; i < nbGen; i++) {
 			pop = pop.evoluer(cible);
@@ -195,14 +197,16 @@ public class LabyViewer extends JFrame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String labyFile = args[0];
 		// int nbPas = Integer.parseInt(args[1]);
 		// int nbRules = Integer.parseInt(args[2]);
 		// int nbGen = Integer.parseInt(args[3]);
-		if (args.length != 4) {
-			System.err.println("args needed : labyFile nbSteps nbRules nbGen");
+		if (args.length != 1) {
+			// System.err.println("args needed : labyFile nbSteps nbRules nbGen");
+			System.err.println("args needed : labyFile");
 			System.exit(1);
 		}
+
+		String labyFile = args[0];
 
 		try {
 			Labyrinthe laby = ChargeurLabyrinthe.chargerLabyrinthe(labyFile);

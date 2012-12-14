@@ -43,7 +43,8 @@ public class LabyEnvAdapterTest extends TestCase {
 			fail("Could not find test maze !");
 		}
 		env = new LabyEnvironnementAdapter(labyTest, 10);
-		pop = PopulationFactory.createRandomPopulation(100, 20);
+		pop = PopulationFactory.createRandomPopulation(100, 20,
+				Population.buildEvolution(true, true));
 	}
 
 	/*

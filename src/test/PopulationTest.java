@@ -27,7 +27,8 @@ public class PopulationTest extends TestCase {
 			fail("Could not find test maze !");
 		}
 		env = new LabyEnvironnementAdapter(labyTest, 10);
-		pop = (Population) PopulationFactory.createRandomPopulation(100, 20);
+		pop = (Population) PopulationFactory.createRandomPopulation(100, 20,
+				Population.buildEvolution(true, true));
 	}
 
 	protected void tearDown() throws Exception {

@@ -5,9 +5,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.SAXException;
+
+import pobj.config.xml.ConfigHandler;
 
 public class Configuration implements AlgoGenParameter, Serializable {
 
@@ -85,6 +95,29 @@ public class Configuration implements AlgoGenParameter, Serializable {
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		oos.writeObject(cfg);
 		fos.close();
+	}
+
+	public static void importConfigurationData(String fileName)
+			throws IOException, ParserConfigurationException, SAXException {
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		SAXParser parser = factory.newSAXParser();
+		ConfigHandler parseHandler = new ConfigHandler();
+		parser.parse(fileName, parseHandler);
+	}
+
+	public static void exportConfigurationData(String fileName)
+			throws IOException {
+		FileOutputStream fos = new FileOutputStream(fileName);
+		Writer out = new OutputStreamWriter(fos);
+		out.append("<configuration>\n");
+		// loop through each fields
+		for (Map.Entry<String, String> entry : Configuration.getInstance().params
+				.entrySet()) {
+			out.append("\t<parametre name='" + entry.getKey() + "' value='"
+					+ entry.getValue() + "'/>\n");
+		}
+		out.append("</configuration>\n");
+		out.close();
 	}
 
 	@Override

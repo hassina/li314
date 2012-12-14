@@ -14,7 +14,6 @@ public class SimpleObservable implements ISimpleObservable {
 	@Override
 	public void addObserver(ISimpleObserver so) {
 		obs.add(so);
-
 	}
 
 	@Override

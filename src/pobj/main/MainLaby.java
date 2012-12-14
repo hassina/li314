@@ -6,6 +6,7 @@ import pobj.algogen.Environnement;
 import pobj.algogen.Population;
 import pobj.algogen.adapter.agent.LabyEnvironnementAdapter;
 import pobj.algogen.adapter.agent.PopulationFactory;
+import pobj.algogen.adapter.evolution.IEvolution;
 import spiti.core.io.Chrono;
 import agent.laby.ChargeurLabyrinthe;
 import agent.laby.Labyrinthe;
@@ -25,8 +26,10 @@ public class MainLaby {
 		}
 		try {
 			Labyrinthe laby = ChargeurLabyrinthe.chargerLabyrinthe(labyFile);
+			
+			IEvolution evolution = Population.buildEvolution(true, true);
 			Population pop = PopulationFactory.createRandomPopulation(10000,
-					nbRules);
+					nbRules, evolution);
 			Environnement cible = new LabyEnvironnementAdapter(laby, nbSteps);
 
 			long res = 0;

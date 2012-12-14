@@ -6,6 +6,7 @@ import pobj.algogen.Environnement;
 import pobj.algogen.Population;
 import pobj.algogen.adapter.agent.LabyEnvironnementAdapter;
 import pobj.algogen.adapter.agent.PopulationFactory;
+import pobj.algogen.adapter.evolution.IEvolution;
 import pobj.config.AlgoGenParameter;
 import pobj.config.Configuration;
 import agent.laby.ChargeurLabyrinthe;
@@ -17,19 +18,30 @@ public class MainConfigurationManuel {
 
 		Configuration cfg = Configuration.getInstance();
 		cfg.setParameterValue(AlgoGenParameter.LABY_FILE, "default.mze");
-		cfg.setParameterValue(AlgoGenParameter.NB_STEPS, "100");
+		cfg.setParameterValue(AlgoGenParameter.NB_STEPS, "103");
 		cfg.setParameterValue(AlgoGenParameter.NB_RULES, "10");
 		cfg.setParameterValue(AlgoGenParameter.NB_GEN, "100");
-		cfg.setParameterValue(AlgoGenParameter.TAILLE_POP, "10");
+		cfg.setParameterValue(AlgoGenParameter.TAILLE_POP, "20");
+		cfg.setParameterValue(AlgoGenParameter.EVO_GEN, "true");
+		cfg.setParameterValue(AlgoGenParameter.SELECT_UNI, "true");
 
 		try {
 			Labyrinthe laby = ChargeurLabyrinthe.chargerLabyrinthe(cfg
 					.getParameterValue(AlgoGenParameter.LABY_FILE));
+
+			IEvolution evolution = Population.buildEvolution(Boolean
+					.parseBoolean(cfg
+							.getParameterValue(AlgoGenParameter.SELECT_UNI)),
+					Boolean.parseBoolean(cfg
+							.getParameterValue(AlgoGenParameter.EVO_GEN)));
+
 			Population pop = PopulationFactory.createRandomPopulation(Integer
 					.parseInt(cfg
 							.getParameterValue(AlgoGenParameter.TAILLE_POP)),
 					Integer.parseInt(cfg
-							.getParameterValue(AlgoGenParameter.NB_RULES)));
+							.getParameterValue(AlgoGenParameter.NB_RULES)),
+					evolution);
+
 			Environnement cible = new LabyEnvironnementAdapter(laby,
 					Integer.parseInt(cfg
 							.getParameterValue(AlgoGenParameter.NB_STEPS)));
@@ -38,7 +50,6 @@ public class MainConfigurationManuel {
 			int nbGen = Integer.parseInt(cfg
 					.getParameterValue(AlgoGenParameter.NB_GEN));
 			for (int i = 0; i < nbGen; i++) {
-
 				// Chrono sw = new Chrono();
 				pop = pop.evoluer(cible);
 				// res += sw.stop2();

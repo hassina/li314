@@ -6,6 +6,7 @@ import pobj.algogen.Environnement;
 import pobj.algogen.Population;
 import pobj.algogen.adapter.agent.LabyEnvironnementAdapter;
 import pobj.algogen.adapter.agent.PopulationFactory;
+import pobj.algogen.adapter.evolution.IEvolution;
 import pobj.config.AlgoGenParameter;
 import pobj.config.Configuration;
 import agent.laby.ChargeurLabyrinthe;
@@ -25,11 +26,20 @@ public class MainConfiguration {
 			System.err.println(cfg.toString());
 			Labyrinthe laby = ChargeurLabyrinthe.chargerLabyrinthe(cfg
 					.getParameterValue(AlgoGenParameter.LABY_FILE));
+
+			IEvolution evolution = Population.buildEvolution(Boolean
+					.parseBoolean(cfg
+							.getParameterValue(AlgoGenParameter.SELECT_UNI)),
+					Boolean.parseBoolean(cfg
+							.getParameterValue(AlgoGenParameter.EVO_GEN)));
+
 			Population pop = PopulationFactory.createRandomPopulation(Integer
 					.parseInt(cfg
 							.getParameterValue(AlgoGenParameter.TAILLE_POP)),
 					Integer.parseInt(cfg
-							.getParameterValue(AlgoGenParameter.NB_RULES)));
+							.getParameterValue(AlgoGenParameter.NB_RULES)),
+					evolution);
+
 			Environnement cible = new LabyEnvironnementAdapter(laby,
 					Integer.parseInt(cfg
 							.getParameterValue(AlgoGenParameter.NB_STEPS)));
