@@ -1,0 +1,4 @@
+<configuration>
+<parametre name='param1' value='valeur1'/>
+<parametre name='param2' value='valeur2'/>
+</configuration>
